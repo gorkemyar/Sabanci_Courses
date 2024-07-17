@@ -1,0 +1,9 @@
+abc
+abcd
+abcx
+abex
+aex
+ex
+exf
+xf
+x

@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <script defer src="./index.js"></script>
+</head>
+
+<body>
+    <div class="slidecontainer">
+        <input type="range" min="200" max="500" value=x class="slider" id="myRange">
+    </div>
+    <img src="./dummy.jpg" width=400 height="400" id="myImage" />
+    <script>
+        var slider = document.getElementById("myRange");
+        var image = document.getElementById("myImage");
+        slider.oninput = function () {
+            image.width = this.value;
+            // this = slider
+        }
+    </script>
+    <input type="file" id="fileInput">
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const previewImage = document.getElementById("myImage");
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener('load', (event) => {
+                previewImage.src = event.target.result;
+            });
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+
+</html>

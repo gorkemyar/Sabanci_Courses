@@ -1,0 +1,13 @@
+{
+    "explore": "Explore",
+    "categories": "Categories",
+    "account": "Account",
+    "shopList": "Shop List",
+    "favorites": "Favorites",
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "signUp": "Sign Up",
+    "forgotPassword":"Forgot Password",
+    "dontAccount": "Don't you have an account"    
+}

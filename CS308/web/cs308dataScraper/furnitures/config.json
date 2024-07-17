@@ -1,0 +1,32 @@
+{"NewsPapers":{
+    "halktvcomtr": {
+      "density": 5,
+      "path": "C:\\Users\\rebah\\PycharmProjects\\SABUNScraper\\news\\halktvcomtr"
+    },
+    "sabah": {
+      "density": 5,
+      "path": "C:\\Users\\rebah\\PycharmProjects\\SABUNScraper\\news\\sabah"
+    },
+    "aksam": {
+      "density": 5,
+      "path": "C:\\Users\\rebah\\PycharmProjects\\SABUNScraper\\news\\aksam"
+    },
+    "anadoluajansi": {
+      "density": 5,
+      "path": "C:\\Users\\rebah\\PycharmProjects\\SABUNScraper\\news\\anadoluajansi"
+    },
+    "donanimhaber": {
+      "density": 5,
+      "path": "C:\\Users\\rebah\\PycharmProjects\\SABUNScraper\\news\\donanimhaber"
+    },
+    "milliyet": {
+      "density": 5,
+      "path": "C:\\Users\\rebah\\PycharmProjects\\SABUNScraper\\news\\milliyet"
+    }
+  },
+  "time_period": 10,
+  "lap_number": 5000,
+  "randbits": 11
+}
+
+

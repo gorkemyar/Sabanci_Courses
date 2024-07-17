@@ -1,0 +1,22 @@
+EVENTS="fp_arith_inst_retired.scalar_single,fp_arith_inst_retired.scalar_double"
+make all
+for count in "7" "9" "10" "11" "12"
+do
+	for test in "matrix_mult_simple" "matrix_mult_simple_faster" "simd_matrix_mult_with_transpose" "matrix_mult_with_transpose" "simd_matrix_mult_without_transpose"
+	do
+		APPLICATION="./$test $count 1"
+		# Run perf and capture its output
+		OUTPUT=$(perf stat -e $EVENTS $APPLICATION 2>&1)
+		
+		# Extract the floating point operation counts and execution time
+		# FP_OPS=$(echo "$OUTPUT" | grep -E 'fp_arith_inst_retired.scalar_' | awk '{s+=$1} END {print s}')
+		num=$((1<<$count))
+		FP_OPS=$((2*$num*$num*$num))
+		TIME=$(echo "$OUTPUT" | grep 'seconds user' | awk '{print $1}')
+		# Calculate GFLOPS
+		GFLOPS=$(echo "scale=9; $FP_OPS / ($TIME * 1000000000)" | bc)
+
+		echo "Test: $test, Num: $num, GFLOPS: $GFLOPS, Time: $TIME"
+	done
+done
+make clean

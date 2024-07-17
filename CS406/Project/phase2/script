@@ -1,0 +1,35 @@
+make clean
+make all
+
+for file in "ey35_02.mat" "ey35_03.mat" "ey36_02.mat" "ey36_03.mat" "football.mat" "cage5.mat" "GD98_a.mat" "bcspwr01.mat" "chesapeake.mat"
+do
+    echo "Filename: $file"
+    echo "With CPU SkipPer"
+    APP="./skipperexe ../data/$file 16"
+    OUTPUT=$($APP)
+    echo "$OUTPUT"
+    echo "With CPU ParSpaRyser"
+    APP="./sparyserexe ../data/$file 16"
+    OUTPUT=$($APP)
+    echo "$OUTPUT"
+    
+    echo "With single GPU SkipPer"
+    APP="./skipperexecu ../data/$file 1"
+    OUTPUT=$($APP)
+    echo "$OUTPUT"
+    echo "With single GPU ParSpaRyser"
+    APP="./sparyserexecu ../data/$file 1"
+    OUTPUT=$($APP)
+    echo "$OUTPUT"
+    
+    echo "With double GPU SkipPer"
+    APP="./skipperexecu ../data/$file 2"
+    OUTPUT=$($APP)
+    echo "$OUTPUT"
+    echo "With double GPU ParSpaRyser"
+    APP="./sparyserexecu ../data/$file 2"
+    OUTPUT=$($APP)
+    echo "$OUTPUT"
+
+done
+make clean

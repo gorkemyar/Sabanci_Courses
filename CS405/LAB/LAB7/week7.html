@@ -1,0 +1,196 @@
+<head>
+    <title>CS405 - Week7 WebGL 3D(with light + texture)</title>
+    <meta name="HTML" content="https://www.w3.org/TR/html/">
+    <meta name="JavaScript" content="https://www.ecma-international.org/ecma-262/">
+    <meta name="WebGL" content="https://www.khronos.org/webgl/">
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/3.4.2/gl-matrix-min.min.js"></script>
+
+</head>
+
+<body>
+
+    <canvas id="webgl-canvas" class="webglcanvas" style="border: 5px black solid;" width="800" height="800"></canvas>
+    <script type="text/javascript" id="includedscript" src="object.js"></script>
+    <script type="text/javascript" id="includedscript" src="utils.js"></script>
+    <script>
+
+        // Transformation variables
+        let translation = [0, 0, 0];
+        let scale = 1;
+        let rotation = [0, 0, 0]; // x, y, z rotation
+
+        // Key state tracking
+        const keys = {};
+
+        // Update the transformation based on key states
+        function updateTransformation() {
+            const translationSpeed = 0.01;
+            const rotationSpeed = 0.01;
+            const scaleSpeed = 0.01;
+
+            // Translate
+            if (keys['ArrowUp']) translation[1] += translationSpeed;
+            if (keys['ArrowDown']) translation[1] -= translationSpeed;
+            if (keys['ArrowRight']) translation[0] += translationSpeed;
+            if (keys['ArrowLeft']) translation[0] -= translationSpeed;
+
+            // Update rotations based on 'w', 's', 'a', 'd', 'q', and 'e'
+            if (keys['w']) rotation[0] += rotationSpeed; // X-axis
+            if (keys['s']) rotation[0] -= rotationSpeed;
+            if (keys['a']) rotation[1] += rotationSpeed; // Y-axis
+            if (keys['d']) rotation[1] -= rotationSpeed;
+            if (keys['q']) rotation[2] += rotationSpeed; // Z-axis
+            if (keys['e']) rotation[2] -= rotationSpeed;
+
+
+            // Scale
+            if (keys['z']) scale = Math.max(0.1, scale - scaleSpeed);
+            if (keys['x']) scale += scaleSpeed;
+        }
+
+        // Set up event listeners for keyboard input
+        window.addEventListener('keydown', function (event) {
+            keys[event.key] = true;
+        });
+
+        window.addEventListener('keyup', function (event) {
+            keys[event.key] = false;
+        });
+
+        const canvas = document.getElementById("webgl-canvas")
+        const gl = canvas.getContext("webgl");
+        // Initialize the GL context
+        if (!gl) {
+            alert("WebGL is not supported. Please use a compatible browser.");
+        } else {
+            console.log("browser supports WebGL")
+            gl.enable(gl.DEPTH_TEST)
+            gl.enable(gl.GL_CULL_FACE)
+        }
+
+        // Create a vertex buffer object (VBO) and bind it.
+        const vbo = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+
+        const vertexData = cubeWithNormalsAndUVs;
+        console.log(vertexData);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);
+
+        const texture = loadTexture(gl, 'https://i.imgur.com/dfLCd19.jpg');
+        console.log(texture);
+        const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vertexShader, vertexShaderSourceWithLight);
+        gl.compileShader(vertexShader);
+        if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+            console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShader));
+        }
+
+        // Create a fragment shader.
+        const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fragmentShader, fragmentShaderSourceWithLight);
+        gl.compileShader(fragmentShader);
+        if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+            console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShader));
+        }
+
+        // Create a shader program and link it.
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            console.error('ERROR linking program!', gl.getProgramInfoLog(program));
+        }
+        gl.useProgram(program);
+
+        const positionAttribute = gl.getAttribLocation(program, "position");
+        gl.enableVertexAttribArray(positionAttribute);
+        gl.vertexAttribPointer(positionAttribute, 3, gl.FLOAT, false, 8 * Float32Array.BYTES_PER_ELEMENT, 0);
+        // After creating the VBO and before drawing
+        const normalAttribute = gl.getAttribLocation(program, "normal");
+        gl.enableVertexAttribArray(normalAttribute);
+        gl.vertexAttribPointer(normalAttribute, 3, gl.FLOAT, false, 8 * Float32Array.BYTES_PER_ELEMENT, 3 * Float32Array.BYTES_PER_ELEMENT);
+        const texcoordAttribute = gl.getAttribLocation(program, "textureCoord");
+        gl.enableVertexAttribArray(texcoordAttribute);
+        gl.vertexAttribPointer(texcoordAttribute, 2, gl.FLOAT, false, 8 * Float32Array.BYTES_PER_ELEMENT, 6 * Float32Array.BYTES_PER_ELEMENT);
+
+        // Retrieve the uniform locations
+        const modelViewMatrixLocation = gl.getUniformLocation(program, "modelViewMatrix");
+        const projectionMatrixLocation = gl.getUniformLocation(program, "projectionMatrix");
+        const normalMatrixLocation = gl.getUniformLocation(program, "normalMatrix");
+        const lightDirectionLocation = gl.getUniformLocation(program, 'lightDirection');
+        const ambientColorLocation = gl.getUniformLocation(program, 'ambientColor');
+        const diffuseColorLocation = gl.getUniformLocation(program, 'diffuseColor');
+        const specularColorLocation = gl.getUniformLocation(program, 'specularColor');
+        const shininessLocation = gl.getUniformLocation(program, 'shininess');
+        const textureLocation = gl.getUniformLocation(program, 'texture');
+
+        // Light properties, play around with the light parameters to change the color of the cube
+        const lightDirection = [0.0, 1.0, 1.0]; // Directional light coming from the top-right-front
+        const ambientColor = [0.1, 0.1, 0.1]; // Soft white light
+        const diffuseColor = [0.1, 0.1, 0.1]; // Bright white light
+        const specularColor = [1, 1, 1]; // Bright white light for the specular highlights
+        const shininess = 1; // Shininess coefficient for specular highlights
+
+        // Set up the projection matrix (for simplicity, using a simple orthographic projection here)
+        const projectionMatrix = createIdentityMatrix(); // Replace this with actual projection matrix setup
+
+        //Set the viewport.
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        //Set the beackground color.
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+
+        // Render loop
+        function render() {
+            // Clear the canvas
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+            updateTransformation();
+
+            // Create the model-view matrix combining translation, rotation, and scale
+            // matrix multiplications in the correct order, calculating the modelview matrix
+            // should be happen in the CPU, not in the GPU
+            // multiplication order: translation * rotation * scale
+            // the order of the multiplication is important
+            const translationMatrix = createTranslationMatrix(...translation);
+            const scaleMatrix = createScaleMatrix(scale);
+            const rotationMatrix_X = createRotationMatrix_X(rotation[0]);
+            const rotationMatrix_Y = createRotationMatrix_Y(rotation[1]);
+            const rotationMatrix_Z = createRotationMatrix_Z(rotation[2]);
+            let combinedRotationMatrix = multiplyMatrices(rotationMatrix_Z, multiplyMatrices(rotationMatrix_Y, rotationMatrix_X));
+            let modelViewMatrix = multiplyMatrices(combinedRotationMatrix, scaleMatrix);
+            modelViewMatrix = multiplyMatrices(translationMatrix, modelViewMatrix);
+
+            // Pass the model-view and projection matrices to the shader
+            gl.uniformMatrix4fv(modelViewMatrixLocation, false, modelViewMatrix);
+            gl.uniformMatrix4fv(projectionMatrixLocation, false, projectionMatrix);
+
+            let normalMatrix = glMatrix.mat4.create();
+            normalMatrix = glMatrix.mat4.transpose(normalMatrix, modelViewMatrix);
+            normalMatrix = glMatrix.mat4.invert(normalMatrix, normalMatrix);
+            gl.uniformMatrix4fv(normalMatrixLocation, false, normalMatrix);
+
+            // Set the light uniforms
+            gl.uniform3fv(lightDirectionLocation, lightDirection);
+            gl.uniform3fv(ambientColorLocation, ambientColor);
+            gl.uniform3fv(diffuseColorLocation, diffuseColor);
+            gl.uniform3fv(specularColorLocation, specularColor);
+            gl.uniform1f(shininessLocation, shininess);
+            gl.uniform1i(textureLocation, 0);
+
+
+            // Draw the cube
+            gl.drawArrays(gl.TRIANGLES, 0, vertexData.length / 8);
+
+            requestAnimationFrame(render);
+        }
+
+        requestAnimationFrame(render); // Start the render loop
+
+    </script>
+</body>

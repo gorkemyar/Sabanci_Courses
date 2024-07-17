@@ -1,0 +1,140 @@
+<head>
+    <title>CS405 - Week6 WebGL 3D(no light)</title>
+    <!-- References or links to HTML, JavaScript, and WebGL standards -->
+    <meta name="HTML" content="https://www.w3.org/TR/html/">
+    <meta name="JavaScript" content="https://www.ecma-international.org/ecma-262/">
+    <meta name="WebGL" content="https://www.khronos.org/webgl/">
+
+</head>
+<body>
+
+    <canvas id="webgl-canvas" class="webglcanvas" style="border: 5px black solid;" width="800" height="800"></canvas>
+    <script type="text/javascript" id="includedscript" src="object.js"></script>
+    <script type="text/javascript" id="includedscript" src="utils.js"></script>
+    <script>
+
+        // Transformation variables
+        let translation = [0, 0, 0];
+        let scale = 1;
+        let rotation = [0, 0, 0]; // x, y, z rotation
+
+        // Key state tracking
+        const keys = {};
+
+        // Update the transformation based on key states
+        function updateTransformation() {
+            const translationSpeed = 0.01;
+            const rotationSpeed = 0.01;
+            const scaleSpeed = 0.01;
+
+            // Translate
+            if (keys['ArrowUp']) translation[1] += translationSpeed;
+            if (keys['ArrowDown']) translation[1] -= translationSpeed;
+            if (keys['ArrowRight']) translation[0] += translationSpeed;
+            if (keys['ArrowLeft']) translation[0] -= translationSpeed;
+
+            // Update rotations based on 'w', 's', 'a', 'd', 'q', and 'e'
+            if (keys['w']) rotation[0] += rotationSpeed; // X-axis
+            if (keys['s']) rotation[0] -= rotationSpeed;
+            if (keys['a']) rotation[1] += rotationSpeed; // Y-axis
+            if (keys['d']) rotation[1] -= rotationSpeed;
+            if (keys['q']) rotation[2] += rotationSpeed; // Z-axis
+            if (keys['e']) rotation[2] -= rotationSpeed;
+
+
+            // Scale
+            if (keys['z']) scale = Math.max(0.1, scale - scaleSpeed);
+            if (keys['x']) scale += scaleSpeed;
+        }
+
+        // Set up event listeners for keyboard input
+        window.addEventListener('keydown', function (event) {
+            keys[event.key] = true;
+        });
+
+        window.addEventListener('keyup', function (event) {
+            keys[event.key] = false;
+        });
+
+        const canvas = document.getElementById("webgl-canvas")
+        const gl = canvas.getContext("webgl");
+        // Initialize the GL context
+        if (!gl) {
+            alert("WebGL is not supported. Please use a compatible browser.");
+        } else {
+            console.log("browser supports WebGL")
+        }
+
+        // Create a vertex buffer object (VBO) and bind it.
+        const vbo = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+
+        const vertexData = cubeWithoutNormals;
+        gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+
+        const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vertexShader, noLightVertexShaderSource);
+        gl.compileShader(vertexShader);
+
+        // Create a fragment shader.
+        const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fragmentShader, noLightFragmentShaderSource);
+        gl.compileShader(fragmentShader)
+
+        // Create a shader program and link it.
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+
+        gl.linkProgram(program);
+        gl.useProgram(program);
+
+        // this code sends the transformation matrix to the GPU and handle calculations on the GPU
+        // however, this approach is considered bad practice and not recommended
+        // for the sake of learning, we will use this approach for now
+        const transformationMatrixLocation = gl.getUniformLocation(program, "transformationMatrix");
+        const translationMatrixLocation = gl.getUniformLocation(program, "translationMatrix");
+        const scaleMatrixLocation = gl.getUniformLocation(program, "scalingMatrix");
+        const rotationMatrixLocation = gl.getUniformLocation(program, "rotationMatrix");
+
+        const positionAttribute = gl.getAttribLocation(program, "position");
+        gl.enableVertexAttribArray(positionAttribute);
+        gl.vertexAttribPointer(positionAttribute, 3, gl.FLOAT, false, 0, 0);
+
+        //Set the viewport.
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        //Set the beackground color.
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        //Clear the canvas.
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        //Draw the triangles
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+        //clear the vertex buffer
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        // Render loop
+        function render() {
+            updateTransformation();
+            const translationMatrix = createTranslationMatrix(...translation);
+            const scaleMatrix = createScaleMatrix(scale);
+            const rotationMatrix_X = createRotationMatrix_X(rotation[0]);
+            const rotationMatrix_Y = createRotationMatrix_Y(rotation[1]);
+            const rotationMatrix_Z = createRotationMatrix_Z(rotation[2]);
+            let combinedRotationMatrix = multiplyMatrices(rotationMatrix_Z, multiplyMatrices(rotationMatrix_Y, rotationMatrix_X));
+           
+            gl.uniformMatrix4fv(translationMatrixLocation, false, translationMatrix);
+            gl.uniformMatrix4fv(scaleMatrixLocation, false, scaleMatrix);
+            gl.uniformMatrix4fv(rotationMatrixLocation, false, combinedRotationMatrix); // Currently, only Z rotation is used
+
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.drawArrays(gl.TRIANGLES, 0, 36);
+
+            requestAnimationFrame(render); // Request to call render for the next frame
+        }
+
+        requestAnimationFrame(render); // Start the render loop
+
+    </script>
+</body>

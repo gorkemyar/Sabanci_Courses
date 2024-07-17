@@ -1,0 +1,27 @@
+To run codes:
+1. Open terminal
+2. Change directory to the phase2 folder
+3. Run the command "make all" to compile all executables code
+4. For CPU you have two options: ./skipperexe and ./sparyserexe
+    - You can run either of them in the following way:
+    - ./skipperexe matrix_name thread_count or ./sparyserexe matrix_name thread_count
+    - Example: "./sparyserexe ../data/ey35_02.mat 16"
+5. For GPU you have two options: ./skipperexecu and ./sparyserexecu
+    - You can run either of them in the following way:
+    - ./skipperexecu matrix_name gpu_count or ./sparyserexecu matrix_name gpu_count
+    - Example: "./sparyserexe ../data/ey35_02.mat 2"
+    - Gpu count can be either 1 or 2
+6. The output will be displayed on the terminal
+
+7. main and maincu files help you to run two algorithms simultaneosly, you can use them they also get the same inputs:
+    - ./main matrix_name thread_count
+    - ./maincu matrix_name gpu_count
+
+To run all matrices with all algorithms simply run ./script   
+
+
+The leaderboard results are the best performance results for each matrix.
+- The CPU results of the football, bcspwr01 and chesapeake (these matrices are 0-1 matrices) matrices are obtained from the ./skipperexe algorithm. 
+- Additionally, GPU results of the bcspwr01 is also obtained from ./skipperexecu algorithm. 
+- Also, the results of the GD98\_a matrix (its permanent is 0) obtained via preprocessing not by either of the algorithms. 
+- All of the other results come from the ./sparyserexe and ./sparyserexecu algorithms.

@@ -1,0 +1,17 @@
+Find max called
+Initial Data: [[12], [23], [433], [45], [13], [43]]
+ResultCollector PID: 33116
+Consumer PID: 40416
+Consumer PID: 31048
+Consumer PID: 12176
+Consumer PID: 21392
+Map 40416 Input: [[12], [23]]
+Map 40416 Result: {23: 1}
+Map 21392 Input: [[433], [45]]
+Map 21392 Result: {433: 1}
+Map 31048 Input: [[13]]
+Map 31048 Result: {13: 1}
+Map 12176 Input: [[43]]
+Map 12176 Result: {43: 1}
+Reducer data: [{'23': 1}, {'433': 1}, {'13': 1}, {'43': 1}]
+Results: 433

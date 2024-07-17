@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<!-- Copyright 2023, Selim Balcısoy -->
+<head>
+  <title>CS405 - WebGL Red Box</title>
+    <!-- References or links to HTML, JavaScript, and WebGL standards -->
+    <meta name="HTML" content="https://www.w3.org/TR/html/">
+    <meta name="JavaScript" content="https://www.ecma-international.org/ecma-262/">
+    <meta name="WebGL" content="https://www.khronos.org/webgl/">
+</head>
+
+<body>
+
+  <canvas id="canvas" width="640" height="480"></canvas>
+
+  <script type="text/javascript" id="includedscript" src="redbox.js"></script>
+  <script>
+
+    // Called once to initialize
+function InitWebGL()
+{
+	// Initialize the WebGL canvas
+	const canvas = document.getElementById("canvas");
+	canvas.oncontextmenu = function() {return false;};
+	gl = canvas.getContext("webgl", {antialias: false, depth: false});	// Initialize the GL context
+	if (!gl) {
+		alert("Unable to initialize WebGL. Your browser or machine may not support it.");
+		return;
+	}
+	
+	// Initialize settings
+	gl.clearColor(1.0, 1.0, 1.0, 0.0);
+	gl.lineWidth(1.0);
+	
+	// Initialize the programs and buffers for drawing
+	lineDrawer  = new LineDrawer();
+	curveDrawer = new CurveDrawer();
+	
+	// Set the viewport size
+	UpdateCanvasSize();
+}
+
+    // Create a WebGL context.
+    const canvas = document.getElementById("canvas");
+    const gl = canvas.getContext("webgl");
+
+    // Check if WebGL is available in the browser.
+    if (!gl) {
+      alert("WebGL is not supported. Please use a compatible browser.");
+    }
+
+    // Create a vertex buffer object (VBO) and bind it.
+    const vbo = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+
+    // Set the vertex data.
+    const vertexData = new Float32Array([
+      // Front face.
+      -1.0, -1.0, 0.0,  // Vertex 1
+       1.0,  1.0, 0.0,  // Vertex 2
+       1.0, -1.0, 0.0,  // Vertex 3
+
+      // Back face.
+      -1.0, -1.0, 0.0,  // Vertex 1
+      -1.0,  1.0, 0.0,  // Vertex 4
+       1.0,  1.0, 0.0,  // Vertex 2
+    ]);
+    gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+
+    // Create a shader program and link it.
+    const vertexShaderSource = `
+      attribute vec3 position;
+
+      void main() {
+        gl_Position = vec4(position , 1.0);
+      }
+    `;
+
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertexShader, vertexShaderSource);
+    gl.compileShader(vertexShader);
+
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragmentShader, fragmentShaderSource);
+    gl.compileShader(fragmentShader);
+
+    const shaderProgram = gl.createProgram();
+    gl.attachShader(shaderProgram, vertexShader);
+    gl.attachShader(shaderProgram, fragmentShader);
+    gl.linkProgram(shaderProgram);
+
+    // Use the shader program.
+    gl.useProgram(shaderProgram);
+
+    // Get the attribute location and enable it.
+    const positionAttribute = gl.getAttribLocation(shaderProgram, "position");
+    gl.enableVertexAttribArray(positionAttribute);
+
+    // Set the vertex attribute pointer.
+    gl.vertexAttribPointer(positionAttribute, 3, gl.FLOAT, false, 0, 0);
+
+    // Set the viewport.
+    gl.viewport(0, 0, canvas.width, canvas.height);
+
+    // Clear the canvas.
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // Draw the box.
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    // Unbind the VBO.
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  </script>
+</body>
+</html>
+

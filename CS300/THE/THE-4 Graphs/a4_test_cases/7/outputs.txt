@@ -1,0 +1,7 @@
+Please enter two words: ac-
+a- (delete c at position 2)
+a-b (insert b after position 2)
+a-b' (insert ' after position 3)
+a-a' (change b at position 3 to a)
+
+Please enter two words: 

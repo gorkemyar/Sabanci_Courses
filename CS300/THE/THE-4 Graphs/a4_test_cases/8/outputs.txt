@@ -1,0 +1,15 @@
+Please enter two words: abc
+abcx (insert x after position 3)
+abex (change c at position 3 to e)
+aex (delete b at position 2)
+ex (delete a at position 1)
+x (delete e at position 1)
+
+Please enter two words: x
+ex (insert e after position 0)
+aex (insert a after position 0)
+abex (insert b after position 1)
+abcx (change e at position 3 to c)
+abc (delete x at position 4)
+
+Please enter two words: 

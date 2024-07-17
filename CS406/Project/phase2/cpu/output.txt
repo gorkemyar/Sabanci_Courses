@@ -1,0 +1,54 @@
+cs406.gorkemyar@nebula:~/CS406_Proje/algorithms$ ./script 
+rm -f *~
+rm -f *.o
+rm -f ./main ./main2
+g++ -c -o main.o main.cpp -O3 -std=c++11  -fopenmp 
+g++ -o main main.o -O3 -std=c++11  -fopenmp 
+Filename: ey35_02.mat
+N is 35
+Number of nonzeros: 247
+Result4: 1.26119e+15
+Time taken by SkipPer with SkipOrd: 46.0316 seconds
+Filename: ey35_03.mat
+N is 35
+Number of nonzeros: 352
+Result4: 8.26657e+19
+Time taken by SkipPer with SkipOrd: 49.9507 seconds
+Filename: ey36_02.mat
+N is 36
+Number of nonzeros: 257
+Result4: 1.99892e+15
+Time taken by SkipPer with SkipOrd: 94.1409 seconds
+Filename: ey36_03.mat
+N is 36
+Number of nonzeros: 372
+Result4: 3.76113e+21
+Time taken by SkipPer with SkipOrd: 115.222 seconds
+Filename: football.mat
+N is 35
+Number of nonzeros: 236
+Result4: 5.3899e+17
+Time taken by SkipPer with SkipOrd: 11.8221 seconds
+Filename: cage5.mat
+N is 37
+Number of nonzeros: 233
+Result4: 5.15382e-08
+Time taken by SkipPer with SkipOrd: 191.279 seconds
+Filename: GD98_a.mat
+N is 38
+Number of nonzeros: 92
+Result4: -0
+Time taken by SkipPer with SkipOrd: 68.7432 seconds
+Filename: bcspwr01.mat
+N is 39
+Number of nonzeros: 131
+Result4: 3.76417e+08
+Time taken by SkipPer with SkipOrd: 0.178687 seconds
+Filename: chesapeake.mat
+N is 39
+Number of nonzeros: 340
+Result4: 1.31735e+13
+Time taken by SkipPer with SkipOrd: 367.342 seconds
+rm -f *~
+rm -f *.o
+rm -f ./main ./main2

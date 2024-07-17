@@ -1,0 +1,2 @@
+GitHub repo link: https://github.com/gorkemyar/CS405
+Project Link: https://github.com/gorkemyar/CS405/tree/master/Project_Step1/project1-chatgpt-animate

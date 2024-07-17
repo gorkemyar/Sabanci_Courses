@@ -1,0 +1,9 @@
+Please enter two words: aaa
+aab (change a at position 3 to b)
+abb (change a at position 2 to b)
+
+Please enter two words: abb
+aab (change b at position 2 to a)
+aaa (change b at position 3 to a)
+
+Please enter two words: 

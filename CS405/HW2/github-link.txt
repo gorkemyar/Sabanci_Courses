@@ -1,0 +1,2 @@
+GitHub repo link: https://github.com/gorkemyar/CS405
+Homework Link: https://github.com/gorkemyar/CS405/tree/master/HW2

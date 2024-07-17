@@ -1,0 +1,307 @@
+Gorkems-MacBook-Pro-2:CS404_A3 gorkemyar$ python main.py 
+_________________________
+. 2 . 1 . . . 
+. . . . . . . 
+. . . 0 . . . 
+. 4 . . 3 . . 
+. . . . . . . 
+. . 1 . 1 . . 
+. 4 . . 4 . . 
+Player1: 0
+Player2: 0
+
+. 2 . 1 . . . 
+. . . . . . . 
+. . . 3 . . . 
+. 4 . . 3 . . 
+. . . . . . . 
+. . 1 . 1 . . 
+. 4 . . 4 . . 
+Player1: 0
+Player2: 0
+
+_________________________
+island row:0 col: 1 has 0 bridges
+island row:0 col: 3 has 0 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 0 bridges
+island row:3 col: 4 has 0 bridges
+island row:5 col: 2 has 0 bridges
+island row:5 col: 4 has 0 bridges
+island row:6 col: 1 has 0 bridges
+island row:6 col: 4 has 0 bridges
+_________________________
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 1
+Enter row: 0
+Enter column: 0
+Cell is not empty
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 2
+<class 'board.Board'>
+Enter row of first island: 0
+Enter column of first island: 1
+Enter row of second island: 0
+Enter column of second island: 3
+. 2 - 1 . . . 
+. . . . . . . 
+. . . 3 . . . 
+. 4 . . 3 . . 
+. . . . . . . 
+. . 1 . 1 . . 
+. 4 . . 4 . . 
+Player1: -1
+Player2: 1
+
+_________________________
+island row:0 col: 1 has 1 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 0 bridges
+island row:3 col: 4 has 0 bridges
+island row:5 col: 2 has 0 bridges
+island row:5 col: 4 has 0 bridges
+island row:6 col: 1 has 0 bridges
+island row:6 col: 4 has 0 bridges
+_________________________
+. 2 - 1 . . . 
+. . . . . . . 
+. . . 3 . . . 
+. 4 - - 3 . . 
+. . . . . . . 
+. . 1 . 1 . . 
+. 4 . . 4 . . 
+Player1: -1
+Player2: 1
+
+_________________________
+island row:0 col: 1 has 1 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 1 bridges
+island row:3 col: 4 has 1 bridges
+island row:5 col: 2 has 0 bridges
+island row:5 col: 4 has 0 bridges
+island row:6 col: 1 has 0 bridges
+island row:6 col: 4 has 0 bridges
+_________________________
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 2
+<class 'board.Board'>
+Enter row of first island: 01
+Enter column of first island: 01
+Enter row of second island: 01
+Enter column of second island: 01
+Bridge not possible
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 0
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 1
+Enter row: 0
+Enter column: 0
+Cell is not empty
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 1
+Enter row: 0
+Enter column: 0
+Cell is not empty
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 2
+<class 'board.Board'>
+Enter row of first island: 0
+Enter column of first island: 1
+Enter row of second island: 0
+Enter column of second island: 1
+Bridge not possible
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 0
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 1
+Enter row: 3
+Enter column: 1
+Cell is not empty
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 2
+<class 'board.Board'>
+Enter row of first island: 0 
+Enter column of first island: 1
+Enter row of second island: 3
+Enter column of second island: 1
+. 2 - 1 . . . 
+. | . . . . . 
+. | . 3 . . . 
+. 4 - - 3 . . 
+. . . . . . . 
+. . 1 . 1 . . 
+. 4 . . 4 . . 
+Player1: -3
+Player2: 3
+
+_________________________
+island row:0 col: 1 has 2 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 2 bridges
+island row:3 col: 4 has 1 bridges
+island row:5 col: 2 has 0 bridges
+island row:5 col: 4 has 0 bridges
+island row:6 col: 1 has 0 bridges
+island row:6 col: 4 has 0 bridges
+_________________________
+. 2 - 1 . . . 
+. | . . . . . 
+. | . 3 . . . 
+. 4 - - 3 . . 
+. . . . . . . 
+. . 1 - 1 . . 
+. 4 . . 4 . . 
+Player1: -1
+Player2: 1
+
+_________________________
+island row:0 col: 1 has 2 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 2 bridges
+island row:3 col: 4 has 1 bridges
+island row:5 col: 2 has 1 bridges
+island row:5 col: 4 has 1 bridges
+island row:6 col: 1 has 0 bridges
+island row:6 col: 4 has 0 bridges
+_________________________
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 2
+<class 'board.Board'>
+Enter row of first island: 6
+Enter column of first island: 1
+Enter row of second island: 6
+Enter column of second island: 4
+. 2 - 1 . . . 
+. | . . . . . 
+. | . 3 . . . 
+. 4 - - 3 . . 
+. . . . . . . 
+. . 1 - 1 . . 
+. 4 - - 4 . . 
+Player1: -1
+Player2: 1
+
+_________________________
+island row:0 col: 1 has 2 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 2 bridges
+island row:3 col: 4 has 1 bridges
+island row:5 col: 2 has 1 bridges
+island row:5 col: 4 has 1 bridges
+island row:6 col: 1 has 1 bridges
+island row:6 col: 4 has 1 bridges
+_________________________
+. 2 - 1 . . . 
+. | . . . . . 
+. | . 3 . . . 
+. 4 - - 3 . . 
+. . . . . . . 
+. . 1 - 1 . . 
+. 4 = = 4 . . 
+Player1: -1
+Player2: 1
+
+_________________________
+island row:0 col: 1 has 2 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 2 bridges
+island row:3 col: 4 has 1 bridges
+island row:5 col: 2 has 1 bridges
+island row:5 col: 4 has 1 bridges
+island row:6 col: 1 has 2 bridges
+island row:6 col: 4 has 2 bridges
+_________________________
+Player Tony Stark turn
+Options:
+     1. Add value to an empty island
+     2. Add horizontal or vertical bridge between two islands
+Enter your choice: 2
+<class 'board.Board'>
+Enter row of first island: 3
+Enter column of first island: 1
+Enter row of second island: 3
+Enter column of second island: 4
+. 2 - 1 . . . 
+. | . . . . . 
+. | . 3 . . . 
+. 4 = = 3 . . 
+. . . . . . . 
+. . 1 - 1 . . 
+. 4 = = 4 . . 
+Player1: -1
+Player2: 1
+
+_________________________
+island row:0 col: 1 has 2 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 3 bridges
+island row:3 col: 4 has 2 bridges
+island row:5 col: 2 has 1 bridges
+island row:5 col: 4 has 1 bridges
+island row:6 col: 1 has 2 bridges
+island row:6 col: 4 has 2 bridges
+_________________________
+. 2 - 1 . . . 
+. | . . . . . 
+. | . 3 . . . 
+. 4 = = 3 . . 
+. | . . . . . 
+. | 1 - 1 . . 
+. 4 = = 4 . . 
+Player1: 3
+Player2: -3
+
+_________________________
+island row:0 col: 1 has 2 bridges
+island row:0 col: 3 has 1 bridges
+island row:2 col: 3 has 0 bridges
+island row:3 col: 1 has 4 bridges
+island row:3 col: 4 has 2 bridges
+island row:5 col: 2 has 1 bridges
+island row:5 col: 4 has 1 bridges
+island row:6 col: 1 has 3 bridges
+island row:6 col: 4 has 2 bridges
+_________________________
+Game Ends
+Jarvis wins

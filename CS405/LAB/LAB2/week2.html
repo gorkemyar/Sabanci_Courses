@@ -1,0 +1,162 @@
+<head>
+  <title>CS 405 Week 2</title>
+  <link rel="stylesheet" type="text/css" href="week2.css" />
+</head>
+
+<body>
+  <svg
+    viewBox="0 0 150 150"
+    xmlns="http://www.w3.org/2000/svg"
+    class="viewboxcontainer"
+    width="800px"
+    height="800px"
+  >
+    <circle
+      cx="5"
+      cy="5"
+      r="30"
+      fill="url(#myRadialGradient)"
+      stroke="blue"
+      stroke-width="1"
+    />
+    <rect x="120" y="40" width="70" height="50" fill="url(#myGradient)" />
+    <polyline points="0,50 50,50 25,100" fill="url(#myRadialGradient2)" />
+    <path
+      d="M 50 50 L 100 150 L 50 150 z"
+      fill="aqua"
+      stroke="navy"
+      stroke-width="10"
+    />
+    <image x="75" y="75" width="25" height="25" xlink:href="image1.png" />
+    <image
+      x="75"
+      y="75"
+      width="25"
+      height="25"
+      xlink:href="image2.png"
+      opacity="0.5"
+    />
+    <text x="120" y="120" fill="black">Hello World!</text>
+
+    <defs>
+      <linearGradient id="myGradient" gradientTransform="rotate(90)">
+        <stop offset="5%" stop-color="white" />
+        <stop offset="35%" stop-color="yellowgreen" />
+        <stop offset="55%" stop-color="green" />
+        <stop offset="75%" stop-color="yellow" />
+      </linearGradient>
+      <radialGradient id="myRadialGradient">
+        <stop offset="5%" stop-color="blue" />
+        <stop offset="45%" stop-color="white" />
+        <stop offset="85%" stop-color="red" />
+      </radialGradient>
+      <radialGradient
+        id="myRadialGradient2"
+        gradientUnits="userSpaceOnUse"
+        cx="40"
+        cy="30"
+        r="70"
+        fx="0.35"
+        fy="0.20"
+      >
+        <stop offset="5%" stop-color="purple" />
+        <stop offset="45%" stop-color="yellow" />
+        <stop offset="95%" stop-color="red" />
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <div class="slidecontainer">
+    <div class="slidecontainer">
+      <label for="viewbox-slider">ViewBox Slider:</label>
+      <input
+        type="range"
+        min="0"
+        max="50"
+        value="0"
+        class="slider"
+        id="viewbox-slider"
+      />
+
+      <label for="svg-width-elem">SVG Width:</label>
+      <input
+        type="range"
+        min="-400"
+        max="400"
+        value="0"
+        class="slider"
+        id="svg-width-elem"
+      />
+
+      <label for="svg-height-elem">SVG Height:</label>
+      <input
+        type="range"
+        min="-400"
+        max="400"
+        value="0"
+        class="slider"
+        id="svg-height-elem"
+      />
+
+      <p id="toplefttext">Top Left: (0,0)</p>
+      <p id="toprighttext">Top Right: (150,0)</p>
+      <p id="bottomlefttext">Bottom Left: (0,150)</p>
+      <p id="bottomrighttext">Bottom Right: (150,150)</p>
+
+      <label for="fileInput"
+        >Upload Text file: (check the console for the output of the file)</label
+      >
+      <input type="file" id="fileInput" accept="text/plain" />
+      <div style="margin-top: 20px">
+        For detailed explanation about the SVG coordinate system, please check
+        <a href="https://www.sarasoueidan.com/blog/svg-coordinate-systems/">
+          this link.
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    viewBoxSlider = document.getElementById("viewbox-slider");
+    viewBoxWidthSlider = document.getElementById("svg-width-elem");
+    viewBoxHeightSlider = document.getElementById("svg-height-elem");
+    svgElem = document.querySelector(".viewboxcontainer");
+    viewBoxSlider.oninput = function () {
+      svgElem.setAttribute(
+        "viewBox",
+        this.value +
+          " " +
+          this.value +
+          " " +
+          (150 - this.value) +
+          " " +
+          (150 - this.value)
+      );
+      document.getElementById("toplefttext").innerHTML =
+        "Top Left: (" + this.value + "," + this.value + ")";
+      document.getElementById("toprighttext").innerHTML =
+        "Top Right: (" + (150 - this.value) + "," + this.value + ")";
+      document.getElementById("bottomlefttext").innerHTML =
+        "Bottom Left: (" + this.value + "," + (150 - this.value) + ")";
+      document.getElementById("bottomrighttext").innerHTML =
+        "Bottom Right: (" + (150 - this.value) + "," + (150 - this.value) + ")";
+    };
+    viewBoxWidthSlider.oninput = function () {
+      svgElem.setAttribute("width", 800 + parseInt(this.value) + "px");
+    };
+    viewBoxHeightSlider.oninput = function () {
+      svgElem.setAttribute("height", 800 + parseInt(this.value) + "px");
+    };
+
+    // Upload text file and console.log the contens of the file
+    fileInput = document.getElementById("fileInput");
+    fileInput.addEventListener("change", function () {
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+      reader.onload = function () {
+        console.log(reader.result);
+      };
+      reader.readAsText(file);
+    });
+  </script>
+</body>

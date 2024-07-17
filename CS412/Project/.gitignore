@@ -1,0 +1,6 @@
+.vscode/settings.json
+venv/
+*.csv
+*.gz
+*.json
+*.json

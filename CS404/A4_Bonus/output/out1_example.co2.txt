@@ -1,0 +1,68 @@
+c ---- [ banner ] ------------------------------------------------------------
+c
+c Kissat SAT Solver
+c 
+c Copyright (c) 2021-2023 Armin Biere University of Freiburg
+c Copyright (c) 2019-2021 Armin Biere Johannes Kepler University Linz
+c 
+c Version 3.1.0 00386cfbb2b5861b1d5af223c53f8afa8ca15218
+c Apple clang version 14.0.3 (clang-1403.0.22.14.1) -W -Wall -O3 -DNDEBUG -arch x86_64
+c Sat Jun 24 17:18:00 CEST 2023 Darwin ccamacmini01.informatik.privat 22.5.0 arm64
+c
+c ---- [ parsing ] -----------------------------------------------------------
+c
+c opened and reading DIMACS file:
+c
+c   ./output/cnf1_example.co2.txt
+c
+c parsed 'p cnf 12 30' header
+c closing input after reading 255 bytes
+c finished parsing after 0.00 seconds
+c
+c ---- [ solving ] -----------------------------------------------------------
+c
+c  seconds switched conflicts irredundant variables
+c         MB reductions redundant  trail  remaining
+c          level restarts   binary    glue
+c
+c *  0.00  1 0 0 0  0   0   0  30  0 0% 0 12 92%
+c {  0.00  1 0 0 0  0   0   0  30  0 0% 0 12 92%
+c }  0.00  1 0 0 0  0   0   0  30  0 0% 0 12 92%
+c 1  0.00  1 0 0 0  0   0   0  30  0 0% 0 12 92%
+c
+c ---- [ result ] ------------------------------------------------------------
+c
+s SATISFIABLE
+v 1 -2 3 -4 5 -6 -7 8 -9 10 -11 12 0
+c
+c ---- [ profiling ] ---------------------------------------------------------
+c
+c           0.00   23.93 %  search
+c           0.00   14.43 %  parse
+c           0.00   10.49 %  focused
+c           0.00    0.00 %  simplify
+c =============================================
+c           0.00  100.00 %  total
+c
+c ---- [ statistics ] --------------------------------------------------------
+c
+c conflicts:                                0                0.00 per second
+c decisions:                                1                0.00 per conflict
+c jumped_reasons:                           7               58 %  propagations
+c propagations:                            12             4787    per second
+c queue_decisions:                          1              100 %  decision
+c random_decisions:                         0                0 %  decision
+c random_sequences:                         0                0    interval
+c score_decisions:                          0                0 %  decision
+c switched:                                 0                0    interval
+c vivify_checks:                            0                0    per vivify
+c vivify_units:                             0                0 %  variables
+c
+c ---- [ resources ] ---------------------------------------------------------
+c
+c maximum-resident-set-size:        671088640 bytes        640 MB
+c process-time:                                              0.00 seconds
+c
+c ---- [ shutting down ] -----------------------------------------------------
+c
+c exit 10

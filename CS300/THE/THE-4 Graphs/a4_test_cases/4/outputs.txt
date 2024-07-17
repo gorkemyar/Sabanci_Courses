@@ -1,0 +1,4 @@
+Please enter two words: aab
+aa (delete b at position 3)
+
+Please enter two words: 

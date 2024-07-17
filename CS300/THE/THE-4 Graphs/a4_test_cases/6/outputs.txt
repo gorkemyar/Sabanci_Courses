@@ -1,0 +1,4 @@
+Please enter two words: aaa
+aaba (insert b after position 2)
+
+Please enter two words: 

@@ -1,0 +1,6 @@
+.viewboxcontainer {
+  background-color: white;
+}
+.rect:hover {
+  fill: #2970ba;
+}
